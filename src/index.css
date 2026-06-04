@@ -43,7 +43,7 @@ button {
   font-family: inherit;
 }
 
-/* ---------- Neon button ---------- */
+/* button */
 .neon-btn {
   position: relative;
   padding: 0.7rem 1.6rem;
@@ -88,7 +88,7 @@ button {
   box-shadow: 0 0 12px var(--neon-x-glow);
 }
 
-/* ---------- Layout ---------- */
+/* layout */
 .app-shell {
   position: relative;
   z-index: 1;
@@ -134,7 +134,7 @@ button {
   margin-bottom: 1.6rem;
 }
 
-/* ---------- Starfield ---------- */
+/* starfield */
 .starfield {
   position: fixed;
   inset: 0;
@@ -142,7 +142,7 @@ button {
   pointer-events: none;
 }
 
-/* ---------- Status text ---------- */
+/* status */
 .status {
   min-height: 1.8rem;
   margin: 0.2rem 0 1rem;

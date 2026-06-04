@@ -11,7 +11,7 @@ import { applyMoveFor, createInitialState } from '../game/engine.js';
 
 const randomStarter = () => (Math.random() < 0.5 ? 'X' : 'O');
 
-// A stable id for this browser, used to identify which player owns which mark.
+// client id
 export function getClientId() {
   let id = localStorage.getItem('ttt-client-id');
   if (!id) {
@@ -25,9 +25,7 @@ function randomCode() {
   return String(Math.floor(100000 + Math.random() * 900000));
 }
 
-// ---- Convert engine state <-> Firebase-friendly shape ----
-// Arrays with null holes don't round-trip well in RTDB, so the board is stored
-// as a 9-char string and empty move queues are normalised on read.
+// serialize
 function serializeGame(state) {
   return {
     cells: state.cells.map((c) => c || '-').join(''),
@@ -49,7 +47,7 @@ export function deserializeGame(g) {
   };
 }
 
-// Create a room and return its 6-digit code. The creator plays as X.
+// create
 export async function createRoom() {
   if (!db) throw new Error('Firebase is not configured.');
   const me = getClientId();
@@ -74,7 +72,7 @@ export async function createRoom() {
   throw new Error('Could not allocate a room code. Please try again.');
 }
 
-// Join an existing room as O. Returns the room code on success.
+// join
 export async function joinRoom(code) {
   if (!db) throw new Error('Firebase is not configured.');
   const me = getClientId();
@@ -85,8 +83,8 @@ export async function joinRoom(code) {
 
   const result = await runTransaction(roomRef, (room) => {
     if (!room) return room;
-    if (room.players?.X === me || room.players?.O === me) return room; // rejoin
-    if (room.players?.O) return; // full -> abort transaction
+    if (room.players?.X === me || room.players?.O === me) return room;
+    if (room.players?.O) return;
     room.players.O = me;
     room.status = 'playing';
     return room;
@@ -102,6 +100,7 @@ export async function joinRoom(code) {
   return code;
 }
 
+// subscribe
 export function subscribeRoom(code, callback) {
   const roomRef = ref(db, `rooms/${code}`);
   return onValue(roomRef, (snap) => callback(snap.val()));
@@ -114,13 +113,13 @@ export function symbolFor(room, clientId) {
   return null;
 }
 
-// Validate and apply a move atomically on the server.
+// move
 export async function sendMove(code, index, clientId) {
   const roomRef = ref(db, `rooms/${code}`);
   await runTransaction(roomRef, (room) => {
     if (!room) return room;
     const symbol = symbolFor(room, clientId);
-    if (!symbol) return; // not a player
+    if (!symbol) return;
     if (room.status !== 'playing') return;
     const state = deserializeGame(room.game);
     if (state.winner || state.currentPlayer !== symbol) return;
@@ -136,27 +135,25 @@ export async function sendMove(code, index, clientId) {
   });
 }
 
-// A player leaves the room. If the opponent never joined, the room is deleted
-// outright; otherwise it is flagged as closed so the remaining player is told.
+// leave
 export async function leaveRoom(code, clientId) {
   if (!db) return;
   const roomRef = ref(db, `rooms/${code}`);
   await runTransaction(roomRef, (room) => {
     if (!room) return room;
     const bothPresent = room.players?.X && room.players?.O;
-    if (!bothPresent) return null; // delete: nobody else is here
+    if (!bothPresent) return null;
     room.closed = { by: symbolFor(room, clientId) || null, at: Date.now() };
     return room;
   });
 }
 
-// Remove a room from the database entirely.
 export async function deleteRoom(code) {
   if (!db) return;
   await remove(ref(db, `rooms/${code}`));
 }
 
-// Start a fresh board, keeping scores. The first turn is randomised.
+// rematch
 export async function newRound(code) {
   const roomRef = ref(db, `rooms/${code}`);
   await runTransaction(roomRef, (room) => {

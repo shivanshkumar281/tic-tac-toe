@@ -8,16 +8,14 @@ import { chooseMove } from '../game/ai.js';
 
 const randomStarter = () => (Math.random() < 0.5 ? 'X' : 'O');
 
-// Manages a locally-played game (hot-seat or vs computer), including scores
-// that persist across resets but reset on page refresh. Who plays first is
-// chosen at random on load and on every new game.
+// local game
 export function useLocalGame({ vsAI = false, difficulty = 'medium', aiPlayer = 'O' } = {}) {
   const [game, setGame] = useState(() => createInitialState(randomStarter()));
   const [scores, setScores] = useState({ X: 0, O: 0 });
   const countedRef = useRef(false);
   const aiTimer = useRef(null);
 
-  // Tally a win exactly once per round.
+  // score
   useEffect(() => {
     if (game.winner && !countedRef.current) {
       countedRef.current = true;
@@ -32,7 +30,7 @@ export function useLocalGame({ vsAI = false, difficulty = 'medium', aiPlayer = '
     []
   );
 
-  // Computer move.
+  // ai turn
   useEffect(() => {
     if (!vsAI || game.winner) return;
     if (game.currentPlayer !== aiPlayer) return;
@@ -46,7 +44,7 @@ export function useLocalGame({ vsAI = false, difficulty = 'medium', aiPlayer = '
     return () => clearTimeout(aiTimer.current);
   }, [vsAI, aiPlayer, difficulty, game.currentPlayer, game.winner, game.cells]);
 
-  // Reset the board only (keep scores). The first turn is randomised.
+  // reset
   const resetBoard = useCallback(() => {
     countedRef.current = false;
     setGame(createInitialState(randomStarter()));

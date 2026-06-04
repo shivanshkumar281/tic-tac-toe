@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-// Animated black-space background with twinkling stars, drawn on a canvas.
+// starfield
 export default function Starfield({ density = 0.00018 }) {
   const canvasRef = useRef(null);
 

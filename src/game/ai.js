@@ -10,7 +10,7 @@ function randomPick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-// Find any move that immediately wins for `player`.
+// instant win
 function winningMove(state, player) {
   for (const i of emptyCells(state.cells)) {
     const next = applyMoveFor(state, i, player);
@@ -19,7 +19,7 @@ function winningMove(state, player) {
   return null;
 }
 
-// Heuristic board evaluation from the AI's perspective.
+// scoring
 function evaluate(cells, ai) {
   const human = otherPlayer(ai);
   const { winner } = findWinner(cells);
@@ -31,20 +31,18 @@ function evaluate(cells, ai) {
     const line = [cells[a], cells[b], cells[c]];
     const aiCount = line.filter((v) => v === ai).length;
     const humanCount = line.filter((v) => v === human).length;
-    if (aiCount > 0 && humanCount > 0) continue; // contested line, no value
+    if (aiCount > 0 && humanCount > 0) continue;
     if (aiCount === 2) score += 10;
     else if (aiCount === 1) score += 1;
-    if (humanCount === 2) score -= 12; // weight defence slightly higher
+    if (humanCount === 2) score -= 12;
     else if (humanCount === 1) score -= 1;
   }
-  // Center control is valuable.
   if (cells[4] === ai) score += 3;
   else if (cells[4] === human) score -= 3;
   return score;
 }
 
-// Depth-limited minimax. The vanishing rule means games never truly "end" in a
-// draw, so we cap the depth and fall back to the heuristic.
+// search
 function minimax(state, depth, alpha, beta, maximizing, ai) {
   const human = otherPlayer(ai);
   if (state.winner === ai) return 1000 - (8 - depth);
@@ -91,14 +89,13 @@ function bestMove(state, ai, depth) {
   return choice;
 }
 
-// Pick the AI's move. `difficulty` is 'easy' | 'medium' | 'hard'.
+// move picker
 export function chooseMove(state, ai, difficulty = 'medium') {
   const moves = emptyCells(state.cells);
   if (moves.length === 0) return null;
   const human = otherPlayer(ai);
 
   if (difficulty === 'easy') {
-    // Mostly random, with an occasional smart move so it isn't trivial.
     if (Math.random() < 0.25) {
       const win = winningMove(state, ai);
       if (win != null) return win;
@@ -111,11 +108,10 @@ export function chooseMove(state, ai, difficulty = 'medium') {
     if (win != null) return win;
     const block = winningMove(state, human);
     if (block != null) return block;
-    if (moves.includes(4)) return 4; // prefer center
+    if (moves.includes(4)) return 4;
     return randomPick(moves);
   }
 
-  // Hard: take the win, block the loss, otherwise search.
   const win = winningMove(state, ai);
   if (win != null) return win;
   const block = winningMove(state, human);

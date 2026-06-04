@@ -1,7 +1,7 @@
 import NeonMark from './NeonMark.jsx';
 import './board.css';
 
-// Cell centre as a percentage of the board, for drawing the winning line.
+// line coords
 function center(i) {
   const row = Math.floor(i / 3);
   const col = i % 3;

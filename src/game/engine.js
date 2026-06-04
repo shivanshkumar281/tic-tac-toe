@@ -1,8 +1,4 @@
-// Core game logic for "Vanishing" Tic-Tac-Toe.
-// Each player may have at most 4 marks on the board at once. Placing a 5th
-// mark removes that player's oldest mark, so the board never fully fills and
-// there are no draws.
-
+// lines & limits
 export const WIN_LINES = [
   [0, 1, 2],
   [3, 4, 5],
@@ -16,6 +12,7 @@ export const WIN_LINES = [
 
 export const MAX_MARKS = 4;
 
+// state
 export function createInitialState(startingPlayer = 'X') {
   return {
     cells: Array(9).fill(null),
@@ -26,6 +23,7 @@ export function createInitialState(startingPlayer = 'X') {
   };
 }
 
+// win check
 export function findWinner(cells) {
   for (const line of WIN_LINES) {
     const [a, b, c] = line;
@@ -36,16 +34,13 @@ export function findWinner(cells) {
   return { winner: null, line: null };
 }
 
-// Returns the index that will vanish if `player` plays again, or null.
-// Once the game is won nothing fades, so the winning marks stay fully lit.
 export function getFadingIndex(state, player) {
   if (state.winner) return null;
   const queue = state.moves[player];
   return queue.length >= MAX_MARKS ? queue[0] : null;
 }
 
-// Apply a move for a specific player (does not require it to be their turn).
-// Returns a new state, or the same state if the move is illegal.
+// moves
 export function applyMoveFor(state, index, player) {
   if (state.winner) return state;
   if (index == null || index < 0 || index > 8) return state;
@@ -74,11 +69,11 @@ export function applyMoveFor(state, index, player) {
   };
 }
 
-// Apply a move for whoever's turn it currently is.
 export function applyMove(state, index) {
   return applyMoveFor(state, index, state.currentPlayer);
 }
 
+// helpers
 export function emptyCells(cells) {
   const out = [];
   for (let i = 0; i < 9; i++) if (cells[i] === null) out.push(i);

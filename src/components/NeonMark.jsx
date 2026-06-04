@@ -1,5 +1,4 @@
-// Renders a glowing neon X or O as an SVG. `fading` dims the mark to signal it
-// will vanish on the player's next move.
+// mark
 export default function NeonMark({ player, fading = false }) {
   if (!player) return null;
   const cls = `mark mark-${player.toLowerCase()}${fading ? ' fading' : ''}`;

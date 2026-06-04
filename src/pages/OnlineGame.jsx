@@ -43,7 +43,6 @@ export default function OnlineGame() {
   useEffect(() => {
     if (!code) return;
     const unsub = subscribeRoom(code, (data) => {
-      // The opponent flagged the room as closed -> notify this player.
       if (data?.closed && data.closed.by && data.closed.by !== symbolFor(data, me)) {
         setOpponentLeft(true);
       }
@@ -108,7 +107,6 @@ export default function OnlineGame() {
     setOpponentLeft(false);
   };
 
-  // Remaining player acknowledges the opponent left -> clean up and go home.
   const acknowledgeLeft = async () => {
     if (code) await deleteRoom(code).catch(() => {});
     navigate('/');
@@ -120,11 +118,11 @@ export default function OnlineGame() {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      /* clipboard may be unavailable; the code is shown on screen anyway */
+      // ignore
     }
   };
 
-  // ---- Opponent left notice ----
+  // left notice
   if (opponentLeft) {
     return (
       <div className="page game-page">
@@ -140,7 +138,7 @@ export default function OnlineGame() {
     );
   }
 
-  // ---- Lobby ----
+  // lobby
   if (!code) {
     return (
       <div className="page game-page">
@@ -172,7 +170,7 @@ export default function OnlineGame() {
     );
   }
 
-  // ---- Waiting for room data ----
+  // connecting
   if (!room) {
     return (
       <div className="page game-page">
@@ -187,7 +185,7 @@ export default function OnlineGame() {
   const scores = room.scores || { X: 0, O: 0 };
   const waiting = room.status === 'waiting' || !room.players?.O;
 
-  // ---- Waiting room ----
+  // waiting
   if (waiting) {
     return (
       <div className="page game-page">

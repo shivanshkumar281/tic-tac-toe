@@ -39,7 +39,7 @@
   cursor: default;
 }
 
-/* ---------- Marks ---------- */
+/* marks */
 .mark {
   width: 100%;
   height: 100%;
@@ -79,7 +79,7 @@
   50% { opacity: 0.18; }
 }
 
-/* ---------- Winning line ---------- */
+/* win line */
 .win-line {
   position: absolute;
   inset: 0;
