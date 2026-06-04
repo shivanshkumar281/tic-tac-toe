@@ -19,12 +19,12 @@ import {
 import './game.css';
 import './online.css';
 
-function Header() {
+function Header({ onExit }) {
   return (
     <header className="game-header">
-      <Link to="/" className="neon-btn ghost small">← Menu</Link>
+      <button className="neon-btn ghost small" onClick={() => onExit('/')}>← Menu</button>
       <h1 className="title small-title">Tic-Tac-Toe</h1>
-      <Link to="/how-to-play" className="neon-btn ghost small">Help</Link>
+      <button className="neon-btn ghost small" onClick={() => onExit('/how-to-play')}>Help</button>
     </header>
   );
 }
@@ -51,10 +51,15 @@ export default function OnlineGame() {
     return () => unsub();
   }, [code, me]);
 
+  const exitTo = (path) => {
+    if (code) leaveRoom(code, me).catch(() => {});
+    navigate(path);
+  };
+
   if (!isFirebaseConfigured) {
     return (
       <div className="page game-page">
-        <Header />
+        <Header onExit={exitTo} />
         <div className="online-card">
           <h2 className="o-glow">Online mode needs setup</h2>
           <p>
@@ -126,7 +131,7 @@ export default function OnlineGame() {
   if (opponentLeft) {
     return (
       <div className="page game-page">
-        <Header />
+        <Header onExit={exitTo} />
         <div className="online-card">
           <h2 className="o-glow">Opponent left</h2>
           <p>Your opponent has left the game.</p>
@@ -142,7 +147,7 @@ export default function OnlineGame() {
   if (!code) {
     return (
       <div className="page game-page">
-        <Header />
+        <Header onExit={exitTo} />
         <div className="online-card">
           <h2 className="x-glow">Create a Room</h2>
           <p>Get a 6-digit code and share it with a friend.</p>
@@ -174,7 +179,7 @@ export default function OnlineGame() {
   if (!room) {
     return (
       <div className="page game-page">
-        <Header />
+        <Header onExit={exitTo} />
         <div className="online-card"><p>Connecting…</p></div>
       </div>
     );
@@ -189,7 +194,7 @@ export default function OnlineGame() {
   if (waiting) {
     return (
       <div className="page game-page">
-        <Header />
+        <Header onExit={exitTo} />
         <div className="online-card">
           <h2 className="win-glow">Room Ready</h2>
           <p>Share this code with your friend:</p>
@@ -230,7 +235,7 @@ export default function OnlineGame() {
 
   return (
     <div className="page game-page">
-      <Header />
+      <Header onExit={exitTo} />
       <p className="you-are">
         You are <strong className={mySymbol === 'X' ? 'x-glow' : 'o-glow'}>{mySymbol}</strong>
         {' · '}Room <strong>{code}</strong>
