@@ -10,7 +10,7 @@ export const WIN_LINES = [
   [2, 4, 6],
 ];
 
-export const MAX_MARKS = 4;
+export const MAX_MARKS = 3;
 
 // state
 export function createInitialState(startingPlayer = 'X') {
