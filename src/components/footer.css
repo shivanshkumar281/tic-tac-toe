@@ -1,0 +1,74 @@
+.site-footer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1.5rem 1rem 2rem;
+  margin-top: auto;
+}
+
+.socials {
+  display: flex;
+  gap: 1.1rem;
+}
+
+.social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--grid);
+  background: rgba(18, 10, 40, 0.45);
+  transition: all 0.18s ease;
+}
+
+.social svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--text-dim);
+  transition: fill 0.18s ease, filter 0.18s ease;
+}
+
+.social:hover {
+  transform: translateY(-3px);
+}
+
+.social.linkedin:hover {
+  border-color: #21e6ff;
+  box-shadow: 0 0 14px var(--neon-x-glow);
+}
+.social.linkedin:hover svg {
+  fill: #21e6ff;
+  filter: drop-shadow(0 0 6px var(--neon-x-glow));
+}
+
+.social.github:hover {
+  border-color: #e8e6ff;
+  box-shadow: 0 0 14px rgba(232, 230, 255, 0.6);
+}
+.social.github:hover svg {
+  fill: #e8e6ff;
+  filter: drop-shadow(0 0 6px rgba(232, 230, 255, 0.7));
+}
+
+.social.instagram:hover {
+  border-color: #ff4dd8;
+  box-shadow: 0 0 14px var(--neon-o-glow);
+}
+.social.instagram:hover svg {
+  fill: #ff4dd8;
+  filter: drop-shadow(0 0 6px var(--neon-o-glow));
+}
+
+.copyright {
+  margin: 0;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}

@@ -1,0 +1,106 @@
+.online-card {
+  width: min(92vw, 420px);
+  background: rgba(14, 8, 32, 0.55);
+  border: 1.5px solid var(--grid);
+  border-radius: 16px;
+  padding: 1.6rem;
+  box-shadow: 0 0 18px var(--grid-glow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  text-align: center;
+}
+
+.online-card h2 {
+  margin: 0;
+  letter-spacing: 0.08em;
+}
+
+.online-card p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.online-card code {
+  color: var(--neon-x);
+  background: rgba(33, 230, 255, 0.1);
+  padding: 0.05rem 0.3rem;
+  border-radius: 4px;
+}
+
+.divider {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--grid);
+  line-height: 0.1em;
+  margin: 0.8rem 0;
+}
+
+.divider span {
+  background: #0d0726;
+  padding: 0 0.8rem;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.code-input {
+  width: 100%;
+  text-align: center;
+  font-size: 1.8rem;
+  letter-spacing: 0.5em;
+  padding: 0.6rem;
+  border-radius: 12px;
+  border: 2px solid var(--neon-line);
+  background: rgba(20, 12, 45, 0.6);
+  color: var(--text);
+  font-family: inherit;
+  box-shadow: inset 0 0 12px rgba(138, 92, 255, 0.3);
+}
+
+.code-input:focus {
+  outline: none;
+  box-shadow: 0 0 14px var(--neon-line), inset 0 0 12px rgba(138, 92, 255, 0.4);
+}
+
+.room-code {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  color: var(--neon-win);
+  text-shadow: 0 0 16px var(--neon-win-glow);
+  padding: 0.4rem 0;
+}
+
+.waiting-text {
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.error {
+  color: #ff6b8b !important;
+  text-shadow: 0 0 8px rgba(255, 107, 139, 0.6);
+  font-size: 0.85rem !important;
+}
+
+.you-are {
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  margin: 0 0 0.8rem;
+}
+
+.status-dim { color: var(--text-dim); }
+
+.online-actions {
+  display: flex;
+  gap: 0.8rem;
+}

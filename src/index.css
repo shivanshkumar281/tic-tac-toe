@@ -1,0 +1,155 @@
+:root {
+  --bg: #05030f;
+  --neon-x: #21e6ff;
+  --neon-x-glow: rgba(33, 230, 255, 0.85);
+  --neon-o: #ff4dd8;
+  --neon-o-glow: rgba(255, 77, 216, 0.85);
+  --neon-line: #8a5cff;
+  --neon-win: #6dff8f;
+  --neon-win-glow: rgba(109, 255, 143, 0.9);
+  --text: #e8e6ff;
+  --text-dim: #9b97c4;
+  --grid: #5b46c9;
+  --grid-glow: rgba(138, 92, 255, 0.55);
+
+  font-family: 'Orbitron', 'Segoe UI', system-ui, sans-serif;
+  color: var(--text);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  min-height: 100dvh;
+}
+
+body {
+  background: radial-gradient(circle at 50% 20%, #0d0726 0%, #05030f 60%, #02010a 100%);
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--neon-x);
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ---------- Neon button ---------- */
+.neon-btn {
+  position: relative;
+  padding: 0.7rem 1.6rem;
+  border-radius: 12px;
+  border: 2px solid var(--neon-line);
+  background: rgba(20, 12, 45, 0.55);
+  color: var(--text);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 0 8px var(--grid-glow), inset 0 0 8px rgba(138, 92, 255, 0.25);
+  text-shadow: 0 0 6px var(--grid-glow);
+}
+
+.neon-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px var(--neon-line), inset 0 0 14px rgba(138, 92, 255, 0.45);
+}
+
+.neon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.neon-btn.win {
+  border-color: var(--neon-win);
+  box-shadow: 0 0 18px var(--neon-win-glow), inset 0 0 12px rgba(109, 255, 143, 0.35);
+  color: #eafff0;
+  text-shadow: 0 0 8px var(--neon-win-glow);
+}
+
+.neon-btn.ghost {
+  background: transparent;
+  border-color: var(--text-dim);
+  box-shadow: none;
+}
+
+.neon-btn.ghost:hover:not(:disabled) {
+  border-color: var(--neon-x);
+  box-shadow: 0 0 12px var(--neon-x-glow);
+}
+
+/* ---------- Layout ---------- */
+.app-shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.title {
+  margin: 0.4rem 0 0.2rem;
+  font-size: clamp(2.2rem, 7vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-align: center;
+  background: linear-gradient(90deg, var(--neon-x), var(--neon-o));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 14px rgba(138, 92, 255, 0.65));
+  animation: title-pulse 3.5s ease-in-out infinite;
+}
+
+@keyframes title-pulse {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(138, 92, 255, 0.5)); }
+  50% { filter: drop-shadow(0 0 22px rgba(138, 92, 255, 0.95)); }
+}
+
+.subtitle {
+  color: var(--text-dim);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-bottom: 1.6rem;
+}
+
+/* ---------- Starfield ---------- */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------- Status text ---------- */
+.status {
+  min-height: 1.8rem;
+  margin: 0.2rem 0 1rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+.status .x { color: var(--neon-x); text-shadow: 0 0 10px var(--neon-x-glow); }
+.status .o { color: var(--neon-o); text-shadow: 0 0 10px var(--neon-o-glow); }
+.status .win { color: var(--neon-win); text-shadow: 0 0 12px var(--neon-win-glow); }

@@ -1,0 +1,41 @@
+.howto {
+  padding-top: 1rem;
+}
+
+.howto-card {
+  width: min(92vw, 560px);
+  background: rgba(14, 8, 32, 0.55);
+  border: 1.5px solid var(--grid);
+  border-radius: 16px;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 0 18px var(--grid-glow);
+  line-height: 1.6;
+}
+
+.howto-card h2 {
+  margin: 1.3rem 0 0.4rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+}
+
+.howto-card h2:first-child {
+  margin-top: 0;
+}
+
+.howto-card p,
+.howto-card li {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.howto-card ol {
+  padding-left: 1.2rem;
+}
+
+.howto-card li {
+  margin-bottom: 0.4rem;
+}
+
+.x-glow { color: var(--neon-x); text-shadow: 0 0 10px var(--neon-x-glow); }
+.o-glow { color: var(--neon-o); text-shadow: 0 0 10px var(--neon-o-glow); }
+.win-glow { color: var(--neon-win); text-shadow: 0 0 10px var(--neon-win-glow); }
