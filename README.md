@@ -16,8 +16,8 @@ This is Tic-Tac-Toe — but with a twist that keeps every match alive:
 
 ### The Twist: Vanishing Marks ♻️
 
-Each player can only have **four marks** on the board at once. When you place
-your **fifth** mark, your **oldest** mark fades away and that square becomes
+Each player can only have **Three marks** on the board at once. When you place
+your **fourth** mark, your **oldest** mark fades away and that square becomes
 free again for either player.
 
 - The mark that is about to vanish **pulses and dims** as a warning, so you can
