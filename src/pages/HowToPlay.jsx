@@ -19,8 +19,8 @@ export default function HowToPlay() {
 
         <h2 className="o-glow">The Twist: Vanishing Marks</h2>
         <p>
-          Each player can only have <strong>four marks</strong> on the board at
-          once. When you place your <strong>fifth</strong> mark, your{' '}
+          Each player can only have <strong>Three marks</strong> on the board at
+          once. When you place your <strong>fourth</strong> mark, your{' '}
           <strong>oldest</strong> mark fades away and that square opens up again
           for either player.
         </p>
