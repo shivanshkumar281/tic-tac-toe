@@ -25,6 +25,18 @@ free again for either player.
 - Because the board can never completely fill up, **there are no draws** —
   someone always wins eventually.
 
+### Winning on Your Fourth Mark 🏆
+
+There's one exception to the vanishing rule. When you place your **fourth** mark,
+the game first checks whether it completes a winning line:
+
+1. Place the fourth mark.
+2. If it forms a winning pattern, **you win immediately** — your oldest mark
+   **stays on the board** and is *not* removed.
+3. Only if the fourth mark does **not** win does your oldest mark vanish.
+
+So a mark that's "about to disappear" can still be part of your winning line.
+
 ### What else is in it
 
 - 🌌 Neon visuals on an animated twinkling starfield
@@ -86,7 +98,13 @@ are no draws.
 
 To handle this, the Hard AI:
 - Simulates the vanishing rule inside its search (the same engine the real game
+<<<<<<< HEAD
   uses), so it understands that placing a 5th mark removes its oldest one.
+=======
+  uses), so it understands that placing a fourth mark removes its oldest one —
+  unless that fourth mark wins, in which case the oldest mark stays and the game
+  ends.
+>>>>>>> 408f16c (Fixed the winning logic and updated the readme as well.)
 - Searches a **limited number of moves ahead** (since the game has no natural
   end) and scores each resulting board with a **heuristic** that rewards:
   - lines where the AI has two marks and the third is open (near-wins),
@@ -102,8 +120,15 @@ To handle this, the Hard AI:
 Get **three of your marks in a row** — horizontally, vertically, or diagonally.
 
 ### Remember the twist
+<<<<<<< HEAD
 You can only keep **four marks** on the board. Your **fifth** move removes your
 **oldest** mark (it pulses/dims first as a warning), reopening that square.
+=======
+You can only keep **three marks** on the board. Your **fourth** move removes your
+**oldest** mark (it pulses/dims first as a warning), reopening that square —
+**unless** that fourth mark completes a winning line, in which case you win and
+the oldest mark stays put.
+>>>>>>> 408f16c (Fixed the winning logic and updated the readme as well.)
 
 ### Scoring
 - A win gives that player **+1**.

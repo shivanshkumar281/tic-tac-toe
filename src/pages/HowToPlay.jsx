@@ -30,6 +30,15 @@ export default function HowToPlay() {
           draws — someone always wins eventually!
         </p>
 
+        <h2 className="win-glow">Winning on Your Fourth Mark</h2>
+        <p>
+          There's one exception to the vanishing rule. When you place your{' '}
+          <strong>fourth</strong> mark, we first check if it completes a winning
+          line. If it does, <strong>you win right away</strong> and your oldest
+          mark <em>stays put</em> — it is not removed. The oldest mark only
+          vanishes when your fourth mark <strong>doesn't</strong> win the game.
+        </p>
+
         <h2 className="win-glow">Scoring</h2>
         <p>
           A win adds a point to that player's score. Scores stay between rounds

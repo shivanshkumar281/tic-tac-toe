@@ -52,13 +52,16 @@ export function applyMoveFor(state, index, player) {
   cells[index] = player;
   queue.push(index);
 
-  if (queue.length > MAX_MARKS) {
+  // Check for a win with the newly placed mark still on the board.
+  const { winner, line } = findWinner(cells);
+
+  // Only remove the oldest mark if placing this mark did not win the game.
+  if (!winner && queue.length > MAX_MARKS) {
     const oldest = queue.shift();
     cells[oldest] = null;
   }
 
   const moves = { ...state.moves, [player]: queue };
-  const { winner, line } = findWinner(cells);
 
   return {
     cells,
